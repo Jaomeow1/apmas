@@ -4,206 +4,246 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>APMAS | ระบบผู้ช่วยจัดการพื้นที่จอดรถอัตโนมัติ</title>
-<link href="https://fonts.googleapis.com/css2?family=Itim&family=Sarabun:wght@300;400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Itim&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
 :root{
-  --g1:#FF1493; --g2:#FF4DB8; --g3:#FF85CC; --g4:#FFB6E0; --g5:#FFE0F3;
-  --grad: linear-gradient(to right, #FF1493, #FF4DB8, #FF85CC, #FFB6E0);
-  --grad-r: linear-gradient(to right, #FFB6E0, #FF85CC, #FF4DB8, #FF1493);
-  --dark:#1a0010; --mid:#7a1050; --soft:#c06090; --pale:#fff0f8;
-  --white:#fff; --card:rgba(255,255,255,0.82);
+  --g1:#FF1493;--g2:#FF4DB8;--g3:#FF85CC;--g4:#FFB6E0;
+  --grad:linear-gradient(to right,#FF1493,#FF4DB8,#FF85CC,#FFB6E0);
+  --dark:#1a0010;--mid:#7a1050;--soft:#c06090;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 body{
-  font-family:'Itim',cursive;
-  min-height:100vh;
-  background: linear-gradient(to right, #fff0f8 0%, #ffe0f3 25%, #ffb6e0 55%, #ff85cc 80%, #ff4db8 100%);
-  background-attachment:fixed;
-  color:var(--dark);
+  font-family:'Itim',cursive;min-height:100vh;
+  background:linear-gradient(to right,#fff0f8,#ffe0f3,#ffb6e0,#ff85cc,#ff4db8);
+  background-attachment:fixed;color:var(--dark);
 }
 .blob{position:fixed;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0;}
 .b1{width:420px;height:420px;background:rgba(255,20,147,0.18);top:-120px;right:-80px;animation:bf 9s ease-in-out infinite;}
 .b2{width:280px;height:280px;background:rgba(255,182,224,0.4);bottom:50px;left:-70px;animation:bf 12s ease-in-out infinite reverse;}
-.b3{width:180px;height:180px;background:rgba(255,255,255,0.5);top:45%;left:60%;animation:bf 7s ease-in-out infinite 2s;}
 @keyframes bf{0%,100%{transform:translateY(0)scale(1)}50%{transform:translateY(-24px)scale(1.06)}}
 .wrap{position:relative;z-index:1;max-width:500px;margin:0 auto;padding:0 16px 64px;}
 
 /* HEADER */
 .hdr{text-align:center;padding:40px 0 28px;}
-.logo{width:76px;height:76px;border-radius:24px;margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-size:32px;background:var(--grad);box-shadow:0 8px 36px rgba(255,20,147,0.45);animation:lp 3.5s ease-in-out infinite;}
+.logo{
+  width:80px;height:80px;border-radius:50%;margin:0 auto 14px;
+  display:flex;align-items:center;justify-content:center;font-size:48px;
+  background:var(--grad);
+  box-shadow:0 8px 36px rgba(255,20,147,0.45);
+  animation:lp 3.5s ease-in-out infinite;
+}
 @keyframes lp{0%,100%{box-shadow:0 8px 36px rgba(255,20,147,0.45)}50%{box-shadow:0 16px 56px rgba(255,20,147,0.7)}}
-.hdr h1{font-family:'Itim',cursive;font-size:42px;font-weight:400;letter-spacing:8px;background:var(--grad-r);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hdr h1{font-size:42px;letter-spacing:8px;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .hdr p{font-size:10px;color:var(--mid);margin-top:5px;font-family:'Space Mono',monospace;letter-spacing:2px;}
 
 /* CARD */
-.card{background:rgba(255,255,255,0.78);border:1px solid rgba(255,105,180,0.3);border-radius:22px;padding:22px 20px;margin-bottom:14px;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);box-shadow:0 4px 28px rgba(255,20,147,0.1),inset 0 1px 0 rgba(255,255,255,0.95);transition:box-shadow .3s,border-color .3s;}
-.card:hover{box-shadow:0 10px 40px rgba(255,20,147,0.2);border-color:rgba(255,20,147,0.45);}
-.sec-ttl{font-family:'Itim',cursive;font-size:17px;font-weight:400;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
-.sec-ttl::before{content:'';display:block;width:4px;height:18px;background:var(--grad);border-radius:3px;flex-shrink:0;}
+.card{
+  background:rgba(255,255,255,0.78);border:1px solid rgba(255,105,180,0.3);
+  border-radius:22px;padding:22px 20px;margin-bottom:14px;
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  box-shadow:0 4px 28px rgba(255,20,147,0.1);
+}
+.sec-ttl{font-size:18px;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+.sec-ttl::before{content:'';display:block;width:4px;height:18px;background:var(--grad);border-radius:3px;}
 
 /* TABS */
-.tabs{display:flex;gap:5px;background:rgba(255,255,255,0.65);border:1px solid rgba(255,105,180,0.25);border-radius:16px;padding:5px;margin-bottom:14px;backdrop-filter:blur(12px);}
-.tab{flex:1;padding:9px 4px;text-align:center;border-radius:12px;font-size:14px;cursor:pointer;transition:all .28s;color:var(--mid);font-family:'Itim',cursive;font-weight:400;white-space:nowrap;}
+.tabs{display:flex;gap:5px;background:rgba(255,255,255,0.65);border:1px solid rgba(255,105,180,0.25);border-radius:16px;padding:5px;margin-bottom:14px;}
+.tab{flex:1;padding:9px 4px;text-align:center;border-radius:12px;font-size:14px;cursor:pointer;transition:all .28s;color:var(--mid);}
 .tab.act{background:var(--grad);color:#fff;box-shadow:0 3px 16px rgba(255,20,147,0.42);}
 .tc{display:none;}
 .tc.act{display:block;animation:fs .32s ease;}
 @keyframes fs{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* PLATE DISPLAY */
+.plate-display{
+  text-align:center;padding:20px;margin-bottom:16px;border-radius:18px;
+  background:linear-gradient(to right,rgba(255,20,147,.1),rgba(255,133,204,.08));
+  border:2px solid rgba(255,20,147,.3);
+}
+.plate-display .label{font-size:12px;color:var(--soft);font-family:'Space Mono',monospace;margin-bottom:8px;}
+.plate-display .plate{font-family:'Space Mono',monospace;font-size:34px;font-weight:700;letter-spacing:8px;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+
+/* TIME INFO */
+.time-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
+.time-box{background:rgba(255,255,255,0.8);border:1px solid rgba(255,105,180,0.25);border-radius:14px;padding:14px;text-align:center;}
+.time-box .label{font-size:11px;color:var(--soft);font-family:'Space Mono',monospace;margin-bottom:6px;}
+.time-box .value{font-size:18px;font-weight:700;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+
+/* TIMER */
+.timer-box{
+  background:linear-gradient(135deg,rgba(255,20,147,0.15),rgba(255,133,204,0.1));
+  border:2px solid rgba(255,20,147,0.35);border-radius:18px;padding:22px;
+  text-align:center;margin-bottom:16px;
+}
+.timer-box .label{font-size:13px;color:var(--mid);margin-bottom:10px;}
+.timer-box .timer{font-family:'Space Mono',monospace;font-size:42px;font-weight:700;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 
 /* FORM */
 .fgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
 .fg{display:flex;flex-direction:column;gap:5px;}
 .fg.full{grid-column:span 2;}
 label{font-size:10px;color:var(--soft);font-family:'Space Mono',monospace;text-transform:uppercase;letter-spacing:1px;}
-input[type=text],input[type=number],input[type=date],input[type=time]{background:rgba(255,255,255,0.92);border:1.5px solid rgba(255,105,180,0.3);border-radius:11px;padding:10px 13px;color:var(--dark);font-family:'Sarabun',sans-serif;font-size:14px;outline:none;width:100%;transition:all .25s;}
+input[type=text],input[type=number],input[type=date],input[type=time],input[type=file]{
+  background:rgba(255,255,255,0.92);border:1.5px solid rgba(255,105,180,0.3);
+  border-radius:11px;padding:10px 13px;color:var(--dark);font-family:'Itim',cursive;
+  font-size:14px;outline:none;width:100%;transition:all .25s;
+}
 input:focus{border-color:var(--g1);background:#fff;box-shadow:0 0 0 3px rgba(255,20,147,0.12);}
 input::placeholder{color:rgba(160,80,120,0.35);}
-input[type=date]::-webkit-calendar-picker-indicator,input[type=time]::-webkit-calendar-picker-indicator{filter:hue-rotate(290deg) saturate(4) brightness(.65);cursor:pointer;}
+input[type=file]{cursor:pointer;font-size:12px;}
+
+/* SLIP UPLOAD */
+.slip-upload{
+  background:rgba(255,255,255,0.85);border:2px dashed rgba(255,20,147,0.35);
+  border-radius:14px;padding:18px;text-align:center;margin-bottom:14px;
+  transition:all .3s;
+}
+.slip-upload.has-file{border-color:var(--g1);border-style:solid;background:rgba(255,20,147,0.05);}
+.slip-preview{max-width:100%;max-height:200px;border-radius:12px;margin-top:10px;border:3px solid rgba(255,20,147,0.2);}
+
+/* BUTTONS */
+.btn{width:100%;padding:14px 20px;border-radius:14px;border:none;font-size:16px;cursor:pointer;transition:all .26s;display:flex;align-items:center;justify-content:center;gap:8px;}
+.bp{background:var(--grad);color:#fff;box-shadow:0 5px 24px rgba(255,20,147,.42);margin-top:16px;}
+.bp:hover{transform:translateY(-2px);box-shadow:0 10px 36px rgba(255,20,147,.6);}
+.bp:disabled{opacity:0.5;cursor:not-allowed;transform:none;}
+.bo{background:rgba(255,255,255,.85);color:var(--g1);border:1.5px solid rgba(255,20,147,.3);margin-top:10px;}
+.bconf{background:linear-gradient(to right,#16a34a,#15803d);color:#fff;box-shadow:0 5px 24px rgba(22,163,74,.38);font-size:17px;padding:16px;margin-top:0;border-radius:16px;}
+.bconf:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(22,163,74,.55);}
 
 /* RATE */
 .rrow{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.72);border:1px solid rgba(255,105,180,0.22);border-radius:12px;padding:10px 14px;}
 .rrow .rl{font-size:13px;color:var(--mid);flex:1;}
 .rrow input.rv{width:66px;text-align:center;background:rgba(255,255,255,.95);border:1.5px solid rgba(255,105,180,.3);border-radius:9px;padding:7px;font-family:'Space Mono',monospace;color:var(--g1);font-size:14px;font-weight:700;}
-.rrow .un{font-size:11px;color:var(--soft);font-family:'Space Mono',monospace;}
-
-/* QR ZONE */
-.qzone{border:2px dashed rgba(255,20,147,.35);border-radius:16px;padding:28px;text-align:center;cursor:pointer;transition:all .3s;background:rgba(255,255,255,.45);position:relative;overflow:hidden;}
-.qzone:hover{border-color:var(--g1);background:rgba(255,20,147,.05);}
-.qzone::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,105,180,.2),transparent);animation:sw 3s infinite;}
-@keyframes sw{0%{left:-100%}100%{left:100%}}
-
-/* RESULT */
-.rsec{display:none;}
-.rsec.act{display:block;animation:fs .45s ease;}
-.plate-big{text-align:center;padding:18px;margin-bottom:14px;border-radius:18px;background:linear-gradient(to right,rgba(255,20,147,.1),rgba(255,133,204,.08),rgba(255,182,224,.06));border:1.5px solid rgba(255,20,147,.3);}
-.plate-big span{font-family:'Space Mono',monospace;font-size:26px;font-weight:700;letter-spacing:5px;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.rr{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid rgba(255,105,180,.12);}
-.rr:last-child{border:none;}
-.rl2{font-size:10px;color:var(--soft);font-family:'Space Mono',monospace;}
-.rv2{font-size:13px;color:var(--dark);font-weight:600;text-align:right;}
-.rv2.h{font-family:'Space Mono',monospace;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.total-bar{background:var(--grad);border-radius:18px;padding:20px 22px;margin-top:14px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 8px 32px rgba(255,20,147,.45);}
-.total-bar .tl{font-size:13px;color:rgba(255,255,255,.82);}
-.total-bar .tl small{display:block;font-size:10px;color:rgba(255,255,255,.55);font-family:'Space Mono',monospace;margin-top:3px;}
-.total-bar .ta{font-family:'Itim',cursive;font-size:42px;font-weight:400;color:#fff;}
-.bfree{display:inline-flex;align-items:center;gap:4px;padding:4px 12px;border-radius:20px;font-size:11px;font-family:'Space Mono',monospace;background:rgba(34,197,94,.14);color:#16a34a;border:1px solid rgba(34,197,94,.3);}
-.bpaid{display:inline-flex;align-items:center;gap:4px;padding:4px 12px;border-radius:20px;font-size:11px;font-family:'Space Mono',monospace;background:rgba(255,20,147,.12);color:var(--g1);border:1px solid rgba(255,20,147,.3);}
-
-/* BUTTONS */
-.btn{width:100%;padding:14px 20px;border-radius:14px;border:none;font-family:'Itim',cursive;font-size:16px;font-weight:400;cursor:pointer;transition:all .26s;display:flex;align-items:center;justify-content:center;gap:8px;}
-.bp{background:var(--grad);color:#fff;box-shadow:0 5px 24px rgba(255,20,147,.42);margin-top:16px;}
-.bp:hover{transform:translateY(-2px);box-shadow:0 10px 36px rgba(255,20,147,.6);}
-.bo{background:rgba(255,255,255,.85);color:var(--g1);border:1.5px solid rgba(255,20,147,.3);margin-top:10px;}
-.bo:hover{background:#fff;border-color:var(--g1);}
-.bg2{background:transparent;color:var(--soft);border:1.5px solid rgba(160,80,120,.2);font-size:13px;padding:10px;margin-top:8px;}
-.dor{display:flex;align-items:center;gap:10px;margin:14px 0;}
-.dor::before,.dor::after{content:'';flex:1;height:1px;background:rgba(255,105,180,.2);}
-.dor span{font-size:10px;color:var(--soft);font-family:'Space Mono',monospace;letter-spacing:2px;}
 
 /* TOAST */
-.toast{position:fixed;top:18px;right:18px;background:#fff;border:1.5px solid rgba(255,20,147,.3);border-radius:14px;padding:12px 18px;font-size:13px;color:var(--dark);z-index:9999;transform:translateX(130%);transition:transform .4s cubic-bezier(.175,.885,.32,1.275);box-shadow:0 6px 24px rgba(255,20,147,.18);max-width:280px;}
+.toast{position:fixed;top:18px;right:18px;background:#fff;border:1.5px solid rgba(255,20,147,.3);border-radius:14px;padding:12px 18px;font-size:13px;color:var(--dark);z-index:9999;transform:translateX(130%);transition:transform .4s;box-shadow:0 6px 24px rgba(255,20,147,.18);max-width:280px;}
 .toast.on{transform:translateX(0);}
-.footer{text-align:center;padding:22px 0 0;font-size:10px;color:var(--soft);font-family:'Space Mono',monospace;letter-spacing:1.5px;}
 
-/* ══ PAYMENT PAGE ══ */
-#paypage{display:none;position:fixed;inset:0;z-index:800;overflow-y:auto;background:linear-gradient(to right,#fff0f8,#ffe0f3,#ffb6e0,#ff85cc,#ff4db8);background-attachment:fixed;}
+/* PAYMENT PAGE */
+#paypage{display:none;position:fixed;inset:0;z-index:800;overflow-y:auto;background:linear-gradient(to right,#fff0f8,#ffe0f3,#ffb6e0,#ff85cc,#ff4db8);}
 .paywrap{max-width:500px;margin:0 auto;padding:24px 16px 64px;position:relative;z-index:1;}
-.pay-topbar{display:flex;align-items:center;gap:14px;margin-bottom:24px;background:rgba(255,255,255,.72);border:1px solid rgba(255,105,180,.28);border-radius:16px;padding:12px 16px;backdrop-filter:blur(20px);}
-.backbtn{display:inline-flex;align-items:center;gap:6px;background:var(--grad);color:#fff;border:none;border-radius:10px;padding:8px 16px;cursor:pointer;font-size:13px;font-weight:700;font-family:'Sarabun',sans-serif;transition:all .2s;white-space:nowrap;box-shadow:0 3px 14px rgba(255,20,147,.35);}
-.backbtn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(255,20,147,.5);}
-.pay-topbar-title h2{font-family:'Itim',cursive;font-size:20px;font-weight:400;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.pay-topbar-title p{font-size:10px;color:var(--soft);font-family:'Space Mono',monospace;letter-spacing:1.5px;}
+.backbtn{display:inline-flex;align-items:center;gap:6px;background:var(--grad);color:#fff;border:none;border-radius:10px;padding:8px 16px;cursor:pointer;font-size:14px;margin-bottom:20px;box-shadow:0 3px 14px rgba(255,20,147,.35);}
 
-.payhero{border-radius:24px;padding:30px 24px;margin-bottom:16px;text-align:center;background:linear-gradient(to right,#FF1493,#FF4DB8,#FF85CC);box-shadow:0 10px 40px rgba(255,20,147,.5);position:relative;overflow:hidden;}
-.payhero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.12) 0%,transparent 60%);}
-.phlbl{font-size:10px;color:rgba(255,255,255,.75);font-family:'Space Mono',monospace;letter-spacing:3px;margin-bottom:12px;}
-.phplate{font-family:'Space Mono',monospace;font-size:30px;font-weight:700;color:#fff;letter-spacing:6px;margin-bottom:6px;text-shadow:0 2px 20px rgba(0,0,0,.15);}
-.phdur{font-size:13px;color:rgba(255,255,255,.75);font-family:'Space Mono',monospace;}
-.phamount-wrap{margin-top:20px;}
-.phamount{font-family:'Itim',cursive;font-size:68px;font-weight:400;color:#fff;line-height:1;text-shadow:0 4px 24px rgba(0,0,0,.1);}
-.phunit{font-size:26px;}
-.phnote{font-size:11px;color:rgba(255,255,255,.65);margin-top:8px;font-family:'Space Mono',monospace;}
+.payhero{
+  border-radius:24px;padding:30px 24px;margin-bottom:16px;text-align:center;
+  background:linear-gradient(to right,#FF1493,#FF4DB8,#FF85CC);
+  box-shadow:0 10px 40px rgba(255,20,147,.5);
+}
+.phplate{font-family:'Space Mono',monospace;font-size:30px;font-weight:700;color:#fff;letter-spacing:6px;margin-bottom:6px;}
+.phamount{font-size:68px;color:#fff;line-height:1;margin-top:20px;}
 
-.paycard{background:rgba(255,255,255,.82);border:1px solid rgba(255,105,180,.28);border-radius:20px;padding:20px;margin-bottom:14px;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);box-shadow:0 4px 22px rgba(255,20,147,.1);}
+.paycard{background:rgba(255,255,255,.82);border:1px solid rgba(255,105,180,.28);border-radius:20px;padding:20px;margin-bottom:14px;}
 .arow{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,105,180,.12);}
 .arow:last-child{border:none;}
-.albl{font-size:10px;color:var(--soft);font-family:'Space Mono',monospace;text-transform:uppercase;letter-spacing:.5px;}
-.aval{font-size:14px;color:var(--dark);font-weight:600;text-align:right;}
-.aval.num{font-family:'Space Mono',monospace;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-size:17px;letter-spacing:1px;}
-.aval.bank{background:linear-gradient(135deg,#1565c0,#0d47a1);color:#fff;padding:3px 12px;border-radius:8px;font-size:13px;}
-.copybtn{background:var(--grad);color:#fff;border:none;border-radius:8px;padding:5px 13px;cursor:pointer;font-size:12px;font-family:'Itim',cursive;font-weight:400;transition:all .2s;margin-left:10px;box-shadow:0 2px 10px rgba(255,20,147,.3);}
-.copybtn:hover{box-shadow:0 4px 16px rgba(255,20,147,.5);transform:translateY(-1px);}
+.albl{font-size:10px;color:var(--soft);font-family:'Space Mono',monospace;}
+.aval{font-size:14px;color:var(--dark);font-weight:600;}
+.aval.num{font-family:'Space Mono',monospace;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:17px;}
 
-.qrbox{background:rgba(255,255,255,.9);border:1px solid rgba(255,105,180,.22);border-radius:20px;padding:28px;margin-bottom:14px;text-align:center;backdrop-filter:blur(24px);box-shadow:0 4px 22px rgba(255,20,147,.1);}
-.qblbl{font-size:10px;color:var(--soft);font-family:'Space Mono',monospace;letter-spacing:2px;margin-bottom:18px;}
-#qr-disp canvas,#qr-disp img{border-radius:16px;border:6px solid #fff;box-shadow:0 6px 28px rgba(255,20,147,.3),0 0 0 2px rgba(255,20,147,.18);max-width:200px;display:block;margin:0 auto;}
-.qbnote{font-size:11px;color:var(--soft);margin-top:14px;font-family:'Space Mono',monospace;}
-
-.steps{display:flex;flex-direction:column;gap:10px;margin-bottom:16px;}
-.step{display:flex;align-items:flex-start;gap:12px;padding:12px 14px;background:rgba(255,255,255,.75);border-radius:14px;border:1px solid rgba(255,105,180,.15);}
-.snum{width:28px;height:28px;border-radius:50%;background:var(--grad);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Space Mono',monospace;box-shadow:0 2px 10px rgba(255,20,147,.35);}
-.stxt{font-size:14px;color:var(--mid);line-height:1.65;font-family:'Itim',cursive;}
-.stxt strong{color:var(--dark);}
-.bconf{background:linear-gradient(to right,#16a34a,#15803d);color:#fff;box-shadow:0 5px 24px rgba(22,163,74,.38);font-size:17px;padding:16px;margin-top:0;border-radius:16px;font-family:'Itim',cursive;}
-.bconf:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(22,163,74,.55);}
+.qrbox{background:rgba(255,255,255,.9);border:1px solid rgba(255,105,180,.22);border-radius:20px;padding:28px;margin-bottom:14px;text-align:center;}
+#qr-disp{display:flex;flex-direction:column;align-items:center;justify-content:center;}
+#qr-disp canvas{border-radius:16px;border:6px solid #fff;box-shadow:0 6px 28px rgba(255,20,147,.3);max-width:220px;margin:0 auto;display:block;}
 
 /* SUCCESS */
 #suc{display:none;position:fixed;inset:0;z-index:9999;background:linear-gradient(to right,#fff0f8,#ffe0f3,#ffb6e0,#ff85cc,#ff4db8);align-items:center;justify-content:center;}
-.sucbox{text-align:center;animation:spop .6s cubic-bezier(.175,.885,.32,1.275);padding:24px;}
-@keyframes spop{from{opacity:0;transform:scale(.4)}to{opacity:1;transform:scale(1)}}
+.sucbox{text-align:center;padding:24px;}
 .sucemoji{font-size:96px;margin-bottom:16px;}
-.sucbox h2{font-family:'Itim',cursive;font-size:40px;font-weight:400;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px;}
-.sucbox p{font-size:15px;color:var(--mid);margin-bottom:4px;}
-.suctag{font-family:'Itim',cursive;font-size:26px;font-weight:400;letter-spacing:5px;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin:14px 0 22px;}
+.sucbox h2{font-size:40px;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px;}
+
+/* EXIT QR SCREEN */
+#exitqr{display:none;position:fixed;inset:0;z-index:9999;background:linear-gradient(to right,#fff0f8,#ffe0f3,#ffb6e0,#ff85cc,#ff4db8);overflow-y:auto;}
+.exitqr-wrap{max-width:500px;margin:0 auto;padding:40px 16px 64px;position:relative;z-index:1;text-align:center;}
+.exitqr-hero{
+  background:linear-gradient(135deg,rgba(255,20,147,0.15),rgba(255,133,204,0.1));
+  border:2px solid rgba(255,20,147,0.35);border-radius:24px;padding:30px 24px;
+  margin-bottom:20px;
+}
+.exitqr-hero h2{font-size:32px;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:12px;}
+.exitqr-hero .plate{font-family:'Space Mono',monospace;font-size:36px;font-weight:700;letter-spacing:8px;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:16px 0;}
+.exitqr-timer{
+  font-family:'Space Mono',monospace;font-size:48px;font-weight:700;
+  background:linear-gradient(to right,#ff1493,#ff4db8);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  margin:20px 0;
+}
+.exitqr-box{
+  background:rgba(255,255,255,0.9);border:2px solid rgba(255,20,147,0.3);
+  border-radius:20px;padding:28px;margin-bottom:20px;
+}
+#exit-qr-display canvas{
+  border-radius:16px;border:6px solid #fff;
+  box-shadow:0 8px 32px rgba(255,20,147,0.35);
+  max-width:280px;margin:0 auto;
+}
+.expired-msg{
+  display:none;background:rgba(220,38,38,0.1);border:2px solid rgba(220,38,38,0.3);
+  border-radius:16px;padding:20px;margin-top:20px;
+}
+.expired-msg.show{display:block;}
+.expired-msg h3{color:#dc2626;font-size:24px;margin-bottom:8px;}
+
+.footer{text-align:center;padding:22px 0 0;font-size:10px;color:var(--soft);font-family:'Space Mono',monospace;letter-spacing:1.5px;}
 </style>
 </head>
 <body>
 
 <div class="blob b1"></div>
 <div class="blob b2"></div>
-<div class="blob b3"></div>
 <div class="toast" id="toast"><span style="background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-right:6px;font-weight:700">✦</span><span id="tmsg"></span></div>
 
-<!-- ════ MAIN PAGE ════ -->
+<!-- MAIN PAGE -->
 <div class="wrap" id="mainpage">
   <div class="hdr">
-    <div class="logo">🅿️</div>
+    <div class="logo">🪙</div>
     <h1>APMAS</h1>
     <p>ระบบผู้ช่วยจัดการพื้นที่จอดรถอัตโนมัติ</p>
   </div>
 
   <div class="tabs">
-    <div class="tab act" id="t-scan" onclick="sw('scan')">📷 QR Code</div>
+    <div class="tab act" id="t-scan" onclick="sw('scan')">🅿️ ติดตามเวลาจอด</div>
     <div class="tab" id="t-manual" onclick="sw('manual')">✏️ กรอกเอง</div>
     <div class="tab" id="t-rate" onclick="sw('rate')">⚙️ อัตราค่าจอด</div>
   </div>
 
-  <!-- SCAN TAB -->
+  <!-- TAB: TRACKING -->
   <div class="tc act" id="tab-scan">
     <div class="card">
-      <div class="sec-ttl">สแกน / วาง QR Code</div>
-      <div class="qzone" onclick="qrhint()">
-        <div style="font-size:52px;margin-bottom:10px">▣</div>
-        <h3 style="font-size:15px;font-weight:700;margin-bottom:4px;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">แตะเพื่อสแกน QR Code</h3>
-        <p style="font-size:12px;color:var(--soft)">รองรับ QR ที่มีข้อมูลป้ายทะเบียน</p>
+      <div class="sec-ttl">ติดตามเวลาจอดรถ</div>
+      
+      <div class="plate-display">
+        <div class="label">ป้ายทะเบียนรถ</div>
+        <div class="plate">1ก 1234</div>
       </div>
-      <div class="dor"><span>หรือวางข้อมูล JSON</span></div>
-      <div class="fg">
-        <label>ข้อมูลจาก QR (JSON)</label>
-        <input type="text" id="qrpaste" placeholder='{"plate":"กข 1234","entry":"2025-01-15T08:00","exit":"2025-01-15T10:30"}' />
+
+      <div class="time-grid">
+        <div class="time-box">
+          <div class="label">วันที่เข้า</div>
+          <div class="value" id="track-entry-date">—</div>
+        </div>
+        <div class="time-box">
+          <div class="label">เวลาเข้า</div>
+          <div class="value" id="track-entry-time">—</div>
+        </div>
       </div>
-      <button class="btn bo" style="margin-top:10px" onclick="loadQR()">📋 โหลดข้อมูลจาก QR</button>
+
+      <div class="timer-box">
+        <div class="label">⏱ เวลาที่ใช้บริการ</div>
+        <div class="timer" id="live-timer">00:00:00</div>
+        <div style="font-size:12px;color:var(--soft);margin-top:8px;font-family:'Space Mono',monospace">กำลังนับเวลา...</div>
+      </div>
+
+      <button class="btn bp" onclick="exitParking()">💳 ชำระค่าบริการและออกจากที่จอด</button>
     </div>
   </div>
 
-  <!-- MANUAL TAB -->
+  <!-- TAB: MANUAL -->
   <div class="tc" id="tab-manual">
     <div class="card">
       <div class="sec-ttl">กรอกข้อมูลด้วยตนเอง</div>
       <div class="fgrid">
         <div class="fg full">
           <label>ป้ายทะเบียนรถ</label>
-          <input type="text" id="plate" placeholder="เช่น กข 1234" style="font-family:'Space Mono',monospace;font-size:22px;letter-spacing:5px;text-align:center;text-transform:uppercase;font-weight:700;" />
+          <input type="text" id="plate" placeholder="เช่น 1ก 1234" style="font-family:'Space Mono',monospace;font-size:22px;letter-spacing:5px;text-align:center;text-transform:uppercase;font-weight:700;" />
         </div>
         <div class="fg"><label>วันที่เข้า</label><input type="date" id="edate" /></div>
         <div class="fg"><label>เวลาเข้า</label><input type="time" id="etime" /></div>
@@ -214,7 +254,7 @@ input[type=date]::-webkit-calendar-picker-indicator,input[type=time]::-webkit-ca
     </div>
   </div>
 
-  <!-- RATE TAB -->
+  <!-- TAB: RATE -->
   <div class="tc" id="tab-rate">
     <div class="card">
       <div class="sec-ttl">กำหนดอัตราค่าบริการ</div>
@@ -223,57 +263,27 @@ input[type=date]::-webkit-calendar-picker-indicator,input[type=time]::-webkit-ca
           <span class="rl">⏱ ไม่เกิน 1 ชั่วโมง</span>
           <span style="color:#16a34a;font-family:'Space Mono',monospace;font-size:13px;font-weight:700">ฟรี 🎉</span>
         </div>
-        <div class="rrow"><span class="rl">ชั่วโมงแรก (เกิน 1 ชม.)</span><input class="rv" type="number" id="r1" value="30" min="0" /><span class="un">฿/ชม.</span></div>
-        <div class="rrow"><span class="rl">ชั่วโมงถัดไป</span><input class="rv" type="number" id="rN" value="20" min="0" /><span class="un">฿/ชม.</span></div>
-        <div class="rrow"><span class="rl">สูงสุดต่อวัน</span><input class="rv" type="number" id="rMax" value="200" min="0" /><span class="un">฿</span></div>
-      </div>
-      <div style="margin-top:14px;padding:12px 14px;background:rgba(255,20,147,.07);border-radius:12px;border:1px solid rgba(255,20,147,.15)">
-        <p style="font-size:11px;color:var(--soft);font-family:'Space Mono',monospace;line-height:2">
-          ✦ ต่ำกว่า 1 ชั่วโมง = ฟรี<br>✦ ขั้นต่ำ 1 ชั่วโมง — ปัดขึ้นทุกชั่วโมง<br>✦ เกิน 24 ชม. คิดเป็นรายวัน
-        </p>
+        <div class="rrow"><span class="rl">ชั่วโมงแรก (เกิน 1 ชม.)</span><input class="rv" type="number" id="r1" value="30" min="0" /><span style="font-size:11px;color:var(--soft)">฿/ชม.</span></div>
+        <div class="rrow"><span class="rl">ชั่วโมงถัดไป</span><input class="rv" type="number" id="rN" value="20" min="0" /><span style="font-size:11px;color:var(--soft)">฿/ชม.</span></div>
+        <div class="rrow"><span class="rl">สูงสุดต่อวัน</span><input class="rv" type="number" id="rMax" value="200" min="0" /><span style="font-size:11px;color:var(--soft)">฿</span></div>
       </div>
     </div>
   </div>
 
-  <!-- RESULT -->
-  <div class="rsec" id="rsec">
-    <div class="card">
-      <div class="sec-ttl">ผลการคำนวณ</div>
-      <div class="plate-big"><span id="rplate">— —</span></div>
-      <div class="rr"><span class="rl2">วัน/เวลาเข้า</span><span class="rv2 h" id="rentry">—</span></div>
-      <div class="rr"><span class="rl2">วัน/เวลาออก</span><span class="rv2 h" id="rexit">—</span></div>
-      <div class="rr"><span class="rl2">ระยะเวลา</span><span class="rv2" id="rdur">—</span></div>
-      <div class="rr"><span class="rl2">สถานะ</span><span class="rv2" id="rstatus">—</span></div>
-      <div class="total-bar">
-        <div class="tl">ค่าจอดรถรวม<small id="rdetail">—</small></div>
-        <div class="ta">฿<span id="rtotal">0</span></div>
-      </div>
-      <button class="btn bp" onclick="openPay()">💳 ดำเนินการชำระเงิน →</button>
-      <button class="btn bg2" onclick="resetAll()">🔄 เริ่มใหม่</button>
-    </div>
-  </div>
   <div class="footer">APMAS © 2025 · ระบบผู้ช่วยจัดการพื้นที่จอดรถอัตโนมัติ</div>
 </div>
 
-<!-- ════ PAYMENT PAGE ════ -->
+<!-- PAYMENT PAGE -->
 <div id="paypage">
   <div class="paywrap">
-    <div class="pay-topbar">
-      <button class="backbtn" onclick="closePay()">← กลับ</button>
-      <div class="pay-topbar-title">
-        <h2>ชำระค่าจอดรถ</h2>
-        <p>APMAS PAYMENT</p>
-      </div>
-    </div>
+    <button class="backbtn" onclick="closePay()">← กลับ</button>
 
     <div class="payhero">
-      <div class="phlbl">🅿️ APMAS · PARKING PAYMENT</div>
-      <div class="phplate" id="phplate">— —</div>
-      <div class="phdur" id="phdur">—</div>
-      <div class="phamount-wrap">
-        <div class="phamount"><span class="phunit">฿</span><span id="phamount">0</span></div>
-        <div class="phnote" id="phnote">ยอดที่ต้องชำระ</div>
-      </div>
+      <div style="font-size:10px;color:rgba(255,255,255,.75);margin-bottom:12px">🅿️ APMAS · PARKING PAYMENT</div>
+      <div class="phplate" id="phplate">1ก 1234</div>
+      <div style="font-size:13px;color:rgba(255,255,255,.75);margin-top:6px" id="phdur">—</div>
+      <div class="phamount">฿<span id="phamount">0</span></div>
+      <div style="font-size:11px;color:rgba(255,255,255,.65);margin-top:8px" id="phnote">ยอดที่ต้องชำระ</div>
     </div>
 
     <div class="paycard">
@@ -282,33 +292,64 @@ input[type=date]::-webkit-calendar-picker-indicator,input[type=time]::-webkit-ca
     </div>
 
     <div class="paycard">
-      <div class="sec-ttl">ข้อมูลบัญชีรับโอน</div>
-      <div class="arow"><span class="albl">ช่องทาง</span><span class="aval bank">PromptPay</span></div>
-      <div class="arow">
-        <span class="albl">เบอร์ PromptPay</span>
-        <div style="display:flex;align-items:center">
-          <span class="aval num">092-379-1035</span>
-          <button class="copybtn" onclick="copyAcc()">คัดลอก</button>
-        </div>
-      </div>
-      <div class="arow"><span class="albl">ชื่อบัญชี</span><span class="aval" style="font-size:16px;font-weight:700">ปวริศา ธาระนัย</span></div>
+      <div class="sec-ttl">ข้อมูล PromptPay</div>
+      <div class="arow"><span class="albl">ช่องทาง</span><span class="aval" style="color:#16a34a">PromptPay</span></div>
+      <div class="arow"><span class="albl">เบอร์</span><span class="aval num">092-379-1035</span></div>
+      <div class="arow"><span class="albl">ชื่อ</span><span class="aval">ปวริศา ธาระนัย</span></div>
     </div>
 
-    <!-- QR CODE -->
     <div class="qrbox">
-      <div class="qblbl">PROMPTPAY · QR CODE ชำระเงิน</div>
+      <div style="font-size:10px;color:var(--soft);font-family:'Space Mono',monospace;margin-bottom:18px">PROMPTPAY QR CODE</div>
       <div id="qr-disp"></div>
-      <div class="qbnote" id="qbnote">สแกนด้วยแอปธนาคาร / KTB Netbank / PromptPay</div>
+      <div style="font-size:11px;color:var(--soft);margin-top:14px;font-family:'Space Mono',monospace">สแกนด้วยแอปธนาคารไทย</div>
     </div>
 
-    <div class="steps">
-      <div class="step"><div class="snum">1</div><div class="stxt">เปิดแอปธนาคาร → เลือก <strong>โอนเงิน</strong> หรือ <strong>สแกน QR</strong></div></div>
-      <div class="step"><div class="snum">2</div><div class="stxt">โอนยอด <strong id="s2amt">฿0</strong> ไปที่ <strong>PromptPay 092-379-1035</strong><br><span style="font-size:12px;color:var(--soft)">ชื่อบัญชี: ปวริศา ธาระนัย</span></div></div>
-      <div class="step"><div class="snum">3</div><div class="stxt">กด <strong>"ยืนยันชำระแล้ว"</strong> ด้านล่างเพื่อบันทึก</div></div>
+    <div class="card">
+      <div class="sec-ttl">📸 อัปโหลดหรือถ่ายรูปสลิปการโอน</div>
+      <div class="slip-upload" id="slip-upload-box">
+        <div style="font-size:14px;color:var(--mid);margin-bottom:10px">📱 กรุณาอัปโหลดสลิปเพื่อยืนยันการชำระเงิน</div>
+        <input type="file" id="slip-file" accept="image/*" capture="environment" onchange="slipSelected()" style="display:none" />
+        <button class="btn bo" onclick="document.getElementById('slip-file').click()">เลือกไฟล์หรือถ่ายรูป</button>
+        <img id="slip-preview" class="slip-preview" style="display:none" />
+      </div>
     </div>
 
-    <button class="btn bconf" onclick="confirmPay()">✅ ยืนยัน — ชำระเงินแล้ว</button>
-    <button class="btn bg2" style="margin-top:10px" onclick="closePay()">← กลับไปหน้าหลัก</button>
+    <button class="btn bconf" id="confirm-btn" onclick="confirmPay()" disabled>✅ ยืนยันชำระเงิน</button>
+    <button class="btn bo" onclick="closePay()">← กลับไปหน้าหลัก</button>
+  </div>
+</div>
+
+<!-- EXIT QR CODE SCREEN -->
+<div id="exitqr">
+  <div class="exitqr-wrap">
+    <div class="exitqr-hero">
+      <div style="font-size:72px;margin-bottom:16px">🎉</div>
+      <h2>ขอบคุณที่ใช้บริการ</h2>
+      <p style="font-size:14px;color:var(--mid);margin:12px 0 16px">กรุณาสแกน QR Code เพื่อออกจากที่จอด</p>
+      <div class="plate" id="exitqr-plate">1ก 1234</div>
+      
+      <div style="background:rgba(255,20,147,0.1);border:1px solid rgba(255,20,147,0.25);border-radius:12px;padding:14px;margin-top:16px;">
+        <div style="font-size:12px;color:var(--soft);margin-bottom:8px;font-family:'Space Mono',monospace;">⏰ QR CODE หมดอายุใน</div>
+        <div class="exitqr-timer" id="exitqr-timer">30:00</div>
+        <div style="font-size:11px;color:var(--soft);font-family:'Space Mono',monospace;">กรุณาสแกนภายใน 30 นาที</div>
+      </div>
+    </div>
+
+    <div class="exitqr-box">
+      <div style="font-size:11px;color:var(--soft);font-family:'Space Mono',monospace;letter-spacing:2px;margin-bottom:18px;">EXIT QR CODE</div>
+      <div id="exit-qr-display"></div>
+      <div style="font-size:12px;color:var(--mid);margin-top:16px;line-height:1.6;">
+        นำ QR Code นี้ไปแสดงที่ด่านออก<br>
+        <span style="color:#ef4444;font-weight:700;">QR Code นี้ใช้ได้ครั้งเดียวเท่านั้น</span>
+      </div>
+    </div>
+
+    <div class="expired-msg" id="expired-msg">
+      <h3>❌ QR Code หมดอายุแล้ว</h3>
+      <p style="font-size:14px;color:#991b1b;margin-top:8px;">กรุณาติดต่อเจ้าหน้าที่เพื่อขอความช่วยเหลือ</p>
+    </div>
+
+    <button class="btn bp" style="max-width:280px;margin:20px auto 0" onclick="closeExitQR()">✓ เสร็จสิ้น</button>
   </div>
 </div>
 
@@ -316,97 +357,73 @@ input[type=date]::-webkit-calendar-picker-indicator,input[type=time]::-webkit-ca
 <div id="suc">
   <div class="sucbox">
     <div class="sucemoji">🎉</div>
-    <h2>ขอบคุณ!</h2>
-    <p>ชำระค่าจอดรถเรียบร้อยแล้ว</p>
-    <div class="suctag" id="splate">— —</div>
-    <p style="font-size:13px;color:var(--soft);margin-bottom:26px">กรุณาแจ้งเจ้าหน้าที่เพื่อรับสลิปยืนยัน</p>
+    <h2>ออกจากที่จอดสำเร็จ!</h2>
+    <p style="font-size:15px;color:var(--mid);margin-bottom:4px">ขอบคุณที่ใช้บริการ</p>
+    <div style="font-family:'Space Mono',monospace;font-size:26px;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:14px 0 22px;letter-spacing:5px" id="splate">1ก 1234</div>
     <button class="btn bp" style="max-width:220px;margin:0 auto" onclick="closeSuc()">กลับหน้าหลัก</button>
   </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
-var D={};
+/* ══════════════════════════════════════════
+   GLOBAL STATE
+══════════════════════════════════════════ */
+var D = { plate: '1ก 1234' };
+var entryTime = null;
+var timerInterval = null;
+var slipData = null;
+var exitQRTimer = null;
+var exitQRExpiry = null;
+
+// Google Apps Script Web App URL (replace with your deployed URL)
+// ⚠️ ถ้ายังไม่ได้ deploy Apps Script ให้เว้นว่างไว้ก่อน จะทำงานแบบ offline
+var SHEET_URL = ''; // ใส่ URL ที่นี่เมื่อ deploy เสร็จแล้ว
 
 /* ══════════════════════════════════════════
-   EMVCo PromptPay QR — มาตรฐานธนาคารไทย
-   เบอร์มือถือ 0923791035
+   INIT
 ══════════════════════════════════════════ */
-function buildEMV(mobile, amount) {
-  /* pad TLV */
-  function tlv(tag, val) {
-    return tag + ('00' + val.length).slice(-2) + val;
-  }
-  /* CRC-16/CCITT-FALSE */
-  function crc16(str) {
-    var crc = 0xFFFF;
-    for (var i = 0; i < str.length; i++) {
-      crc ^= (str.charCodeAt(i) << 8);
-      for (var b = 0; b < 8; b++) {
-        crc = (crc & 0x8000) ? ((crc << 1) ^ 0x1021) : (crc << 1);
-      }
-    }
-    return ('0000' + (crc & 0xFFFF).toString(16).toUpperCase()).slice(-4);
-  }
-
-  /* แปลงเบอร์ไทย 0xxxxxxxx → +66xxxxxxxx */
-  var phone = mobile.replace(/\D/g, '');
-  if (phone.charAt(0) === '0') phone = '0066' + phone.slice(1);
-
-  /* Tag 29 — PromptPay merchant account */
-  var tag29 = tlv('00', 'A000000677010111') + tlv('01', phone);
-  var merchantInfo = tlv('29', tag29);
-
-  /* สร้าง payload */
-  var body =
-    tlv('00', '01') +          // Payload Format Indicator
-    tlv('01', '12') +          // Dynamic QR (12 = one-time use with amount)
-    merchantInfo +
-    tlv('53', '764') +         // Transaction Currency: THB
-    tlv('54', amount.toFixed(2)) + // Transaction Amount
-    tlv('58', 'TH');           // Country Code
-
-  /* CRC field */
-  var withCRCtag = body + '6304';
-  var checksum = crc16(withCRCtag);
-  return withCRCtag + checksum;
-}
-
-function makeQR(amount, plate) {
-  var qel = document.getElementById('qr-disp');
-  qel.innerHTML = '';
-
-  var payload = buildEMV('0923791035', amount);
-
-  new QRCode(qel, {
-    text: payload,
-    width: 220, height: 220,
-    colorDark: '#C71585',
-    colorLight: '#ffffff',
-    correctLevel: QRCode.CorrectLevel.L
-  });
-
-  /* ยอดเงิน + ทะเบียน */
-  var lbl = document.createElement('div');
-  lbl.style.cssText = 'margin-top:14px;font-family:"Itim",cursive;font-size:16px;background:linear-gradient(to right,#FF1493,#FF4DB8,#FF85CC);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;';
-  lbl.textContent = '฿ ' + amount.toLocaleString() + ' · ' + plate;
-  qel.appendChild(lbl);
-
-  document.getElementById('qbnote').textContent = 'สแกนด้วยแอปธนาคารไทยทุกค่าย · PromptPay มาตรฐาน EMVCo';
-}
-
-/* ── INIT ── */
 window.addEventListener('load', function(){
-  var now=new Date();
-  setDT('e',new Date(now-2.5*3600000));
-  setDT('x',now);
+  // Set entry time to now
+  entryTime = new Date();
+  document.getElementById('track-entry-date').textContent = fmtDate(entryTime);
+  document.getElementById('track-entry-time').textContent = fmtTime(entryTime);
+  
+  // Start live timer
+  startTimer();
+
+  // Set manual form defaults
+  var now = new Date();
+  setDT('e', new Date(now - 2.5*3600000));
+  setDT('x', now);
 });
+
+function fmtDate(d){ return d.getDate()+'/'+(d.getMonth()+1)+'/'+(d.getFullYear()+543); }
+function fmtTime(d){ return d.toTimeString().slice(0,5); }
 function setDT(p,d){
-  document.getElementById(p+'date').value=d.toISOString().split('T')[0];
-  document.getElementById(p+'time').value=d.toTimeString().slice(0,5);
+  document.getElementById(p+'date').value = d.toISOString().split('T')[0];
+  document.getElementById(p+'time').value = d.toTimeString().slice(0,5);
 }
 
-/* ── TABS ── */
+/* ══════════════════════════════════════════
+   LIVE TIMER
+══════════════════════════════════════════ */
+function startTimer(){
+  timerInterval = setInterval(function(){
+    var now = new Date();
+    var diff = now - entryTime;
+    var hrs = Math.floor(diff / 3600000);
+    var mins = Math.floor((diff % 3600000) / 60000);
+    var secs = Math.floor((diff % 60000) / 1000);
+    document.getElementById('live-timer').textContent =
+      pad(hrs) + ':' + pad(mins) + ':' + pad(secs);
+  }, 1000);
+}
+function pad(n){ return (n<10?'0':'')+n; }
+
+/* ══════════════════════════════════════════
+   TABS
+══════════════════════════════════════════ */
 function sw(name){
   ['scan','manual','rate'].forEach(function(n){
     document.getElementById('t-'+n).classList.toggle('act',n===name);
@@ -414,7 +431,9 @@ function sw(name){
   });
 }
 
-/* ── TOAST ── */
+/* ══════════════════════════════════════════
+   TOAST
+══════════════════════════════════════════ */
 function msg(t){
   var el=document.getElementById('toast');
   document.getElementById('tmsg').textContent=t;
@@ -422,145 +441,376 @@ function msg(t){
   setTimeout(function(){el.classList.remove('on');},3000);
 }
 
-/* ── QR LOAD ── */
-function qrhint(){msg('วางข้อมูล JSON จาก QR ในช่องด้านล่าง');}
-function loadQR(){
-  var txt=document.getElementById('qrpaste').value.trim();
-  if(!txt){msg('❌ กรุณาวางข้อมูลก่อน');return;}
-  try{
-    var d=txt.charAt(0)==='{' ? JSON.parse(txt) : flatP(txt);
-    if(!d.plate){msg('❌ ไม่พบป้ายทะเบียนใน QR');return;}
-    document.getElementById('plate').value=d.plate.toUpperCase();
-    var ent=rdate(d.entry||d.entryDate||d.entry_date,d.entryTime||d.entry_time||'');
-    var ext=rdate(d.exit||d.exitDate||d.exit_date,d.exitTime||d.exit_time||'');
-    if(ent) setDT('e',ent); if(ext) setDT('x',ext);
-    sw('manual'); msg('✓ โหลดข้อมูล QR สำเร็จ');
-    setTimeout(calc,300);
-  }catch(e){msg('❌ รูปแบบข้อมูลไม่ถูกต้อง');}
-}
-function flatP(s){
-  var o={};
-  s.split(/[,|;\n]/).forEach(function(p){var i=p.indexOf(':');if(i>0) o[p.slice(0,i).trim().toLowerCase()]=p.slice(i+1).trim();});
-  return o;
-}
-function rdate(ds,ts){
-  if(!ds) return null;
-  try{if(ds.indexOf('T')>-1) return new Date(ds); if(ts) return new Date(ds+'T'+ts); return new Date(ds);}catch(e){return null;}
+/* ══════════════════════════════════════════
+   EXIT PARKING (from tracking tab)
+══════════════════════════════════════════ */
+function exitParking(){
+  // หยุดนาฬิกานับเวลา
+  if(timerInterval){
+    clearInterval(timerInterval);
+    timerInterval = null;
+  }
+
+  var now = new Date();
+  var diffMs = now - entryTime;
+  var diffMin = diffMs / 60000;
+  var diffHr = diffMs / 3600000;
+
+  var r1 = parseFloat(document.getElementById('r1').value) || 30;
+  var rn = parseFloat(document.getElementById('rN').value) || 20;
+  var rmax = parseFloat(document.getElementById('rMax').value) || 200;
+
+  var total = 0, detail = '';
+  var days = Math.floor(diffHr/24), remHr = diffHr - days*24, billHr = Math.ceil(remHr);
+
+  if(diffHr < 1){
+    total = 0; detail = 'ต่ำกว่า 1 ชั่วโมง (ฟรี)';
+  } else {
+    var dayFee = days * rmax, remFee = 0;
+    if(billHr >= 1){ remFee = r1 + (billHr>1 ? (billHr-1)*rn : 0); remFee = Math.min(remFee, rmax); }
+    total = dayFee + remFee;
+    var parts = [];
+    if(days>0) parts.push(days+' วัน × ฿'+rmax+' = ฿'+dayFee);
+    if(billHr>=1) parts.push(billHr+' ชม. = ฿'+remFee);
+    detail = parts.join(' + ');
+  }
+
+  var hh = Math.floor(diffMin/60), mm = Math.floor(diffMin%60);
+  var dur = (hh>0 ? hh+' ชม. ' : '') + mm + ' นาที';
+
+  D = {
+    plate: '1ก 1234',
+    entry: entryTime,
+    exit: now,
+    total: total,
+    detail: detail,
+    dur: dur,
+    diffMin: Math.floor(diffMin)
+  };
+
+  openPay();
 }
 
-/* ── CALCULATE ── */
+/* ══════════════════════════════════════════
+   CALCULATE (manual tab)
+══════════════════════════════════════════ */
 function calc(){
-  var plate=document.getElementById('plate').value.trim().toUpperCase();
-  var ed=document.getElementById('edate').value, et=document.getElementById('etime').value;
-  var xd=document.getElementById('xdate').value, xt=document.getElementById('xtime').value;
-  if(!plate){msg('❌ กรุณากรอกป้ายทะเบียน');sw('manual');return;}
-  if(!ed||!et||!xd||!xt){msg('❌ กรุณากรอกวันที่/เวลาให้ครบ');sw('manual');return;}
-  var entry=new Date(ed+'T'+et), exit=new Date(xd+'T'+xt);
-  if(isNaN(entry)||isNaN(exit)){msg('❌ วันที่/เวลาไม่ถูกต้อง');return;}
-  if(exit<=entry){msg('❌ เวลาออกต้องหลังเวลาเข้า');return;}
-  var diffMs=exit-entry, diffMin=diffMs/60000, diffHr=diffMs/3600000;
-  var r1=parseFloat(document.getElementById('r1').value)||30;
-  var rn=parseFloat(document.getElementById('rN').value)||20;
-  var rmax=parseFloat(document.getElementById('rMax').value)||200;
-  var total=0, detail='';
-  var days=Math.floor(diffHr/24), remHr=diffHr-days*24, billHr=Math.ceil(remHr);
-  if(diffHr<1){ total=0; detail='ต่ำกว่า 1 ชั่วโมง (ฟรี)'; }
-  else {
-    var dayFee=days*rmax, remFee=0;
-    if(billHr>=1){remFee=r1+(billHr>1?(billHr-1)*rn:0);remFee=Math.min(remFee,rmax);}
-    total=dayFee+remFee;
-    var parts=[]; if(days>0) parts.push(days+' วัน × ฿'+rmax+' = ฿'+dayFee);
-    if(billHr>=1) parts.push(billHr+' ชม. = ฿'+remFee);
-    detail=parts.join(' + ');
+  // หยุดนาฬิกานับเวลาถ้ากำลังทำงานอยู่
+  if(timerInterval){
+    clearInterval(timerInterval);
+    timerInterval = null;
   }
-  var hh=Math.floor(diffMin/60), mm=Math.floor(diffMin%60);
-  var dur=(hh>0?hh+' ชม. ':'')+mm+' นาที';
-  D={plate:plate,entry:entry,exit:exit,total:total,detail:detail,dur:dur};
-  document.getElementById('rplate').textContent=plate;
-  document.getElementById('rentry').textContent=fdt(entry);
-  document.getElementById('rexit').textContent=fdt(exit);
-  document.getElementById('rdur').textContent=dur;
-  document.getElementById('rstatus').innerHTML=total===0?'<span class="bfree">✦ ฟรี</span>':'<span class="bpaid">✦ มีค่าบริการ</span>';
-  document.getElementById('rtotal').textContent=total.toLocaleString();
-  document.getElementById('rdetail').textContent=detail;
-  var sec=document.getElementById('rsec');
-  sec.classList.add('act');
-  sec.scrollIntoView({behavior:'smooth',block:'nearest'});
-  msg('✓ คำนวณเรียบร้อย');
+
+  var plate = document.getElementById('plate').value.trim().toUpperCase();
+  var ed = document.getElementById('edate').value, et = document.getElementById('etime').value;
+  var xd = document.getElementById('xdate').value, xt = document.getElementById('xtime').value;
+  
+  if(!plate){ msg('❌ กรุณากรอกป้ายทะเบียน'); sw('manual'); return; }
+  if(!ed||!et||!xd||!xt){ msg('❌ กรุณากรอกวันที่/เวลาให้ครบ'); sw('manual'); return; }
+  
+  var entry = new Date(ed+'T'+et), exit = new Date(xd+'T'+xt);
+  if(isNaN(entry)||isNaN(exit)){ msg('❌ วันที่/เวลาไม่ถูกต้อง'); return; }
+  if(exit <= entry){ msg('❌ เวลาออกต้องหลังเวลาเข้า'); return; }
+
+  var diffMs = exit - entry, diffMin = diffMs / 60000, diffHr = diffMs / 3600000;
+  var r1 = parseFloat(document.getElementById('r1').value) || 30;
+  var rn = parseFloat(document.getElementById('rN').value) || 20;
+  var rmax = parseFloat(document.getElementById('rMax').value) || 200;
+
+  var total = 0, detail = '';
+  var days = Math.floor(diffHr/24), remHr = diffHr - days*24, billHr = Math.ceil(remHr);
+
+  if(diffHr < 1){ total = 0; detail = 'ต่ำกว่า 1 ชั่วโมง (ฟรี)'; }
+  else {
+    var dayFee = days * rmax, remFee = 0;
+    if(billHr >= 1){ remFee = r1 + (billHr>1 ? (billHr-1)*rn : 0); remFee = Math.min(remFee, rmax); }
+    total = dayFee + remFee;
+    var parts = [];
+    if(days>0) parts.push(days+' วัน × ฿'+rmax+' = ฿'+dayFee);
+    if(billHr>=1) parts.push(billHr+' ชม. = ฿'+remFee);
+    detail = parts.join(' + ');
+  }
+
+  var hh = Math.floor(diffMin/60), mm = Math.floor(diffMin%60);
+  var dur = (hh>0 ? hh+' ชม. ' : '') + mm + ' นาที';
+
+  D = {
+    plate: plate,
+    entry: entry,
+    exit: exit,
+    total: total,
+    detail: detail,
+    dur: dur,
+    diffMin: Math.floor(diffMin)
+  };
+
+  openPay();
 }
+
+/* ══════════════════════════════════════════
+   OPEN PAYMENT PAGE
+══════════════════════════════════════════ */
+function openPay(){
+  if(!D.plate){ msg('กรุณาคำนวณก่อน'); return; }
+
+  document.getElementById('phplate').textContent = D.plate;
+  document.getElementById('phdur').textContent = 'ระยะเวลา '+D.dur;
+  document.getElementById('phamount').textContent = D.total.toLocaleString();
+  document.getElementById('phnote').textContent = D.total===0 ? '🎉 ไม่มีค่าใช้จ่าย' : 'ยอดที่ต้องชำระ';
+
+  var rows = [
+    ['ป้ายทะเบียน', D.plate],
+    ['เวลาเข้า', fdt(D.entry)],
+    ['เวลาออก', fdt(D.exit)],
+    ['ระยะเวลา', D.dur],
+    ['ค่าจอด', '฿'+D.total.toLocaleString()],
+  ];
+  document.getElementById('payrows').innerHTML = rows.map(function(r){
+    return '<div class="arow"><span class="albl">'+r[0]+'</span><span class="aval">'+r[1]+'</span></div>';
+  }).join('');
+
+  /* Generate QR */
+  if(D.total > 0){
+    makeQR(D.total, D.plate);
+  } else {
+    var qel = document.getElementById('qr-disp');
+    qel.innerHTML = '<div style="font-size:64px">🎉</div><div style="color:#16a34a;font-size:20px;margin-top:10px">FREE!</div>';
+  }
+
+  // Reset slip upload
+  slipData = null;
+  document.getElementById('slip-file').value = '';
+  document.getElementById('slip-preview').style.display = 'none';
+  document.getElementById('slip-upload-box').classList.remove('has-file');
+  
+  // Enable/disable confirm button based on payment amount
+  if(D.total === 0) {
+    // ฟรี - ไม่ต้องแนบสลิป กดยืนยันได้เลย
+    document.getElementById('confirm-btn').disabled = false;
+    document.getElementById('slip-upload-box').style.display = 'none'; // ซ่อนช่องอัปโหลด
+  } else {
+    // มีค่าบริการ - ต้องแนบสลิปก่อน
+    document.getElementById('confirm-btn').disabled = true;
+    document.getElementById('slip-upload-box').style.display = 'block'; // แสดงช่องอัปโหลด
+  }
+
+  var pp = document.getElementById('paypage');
+  pp.style.display = 'block';
+  pp.scrollTop = 0;
+}
+
 function fdt(d){
   var m=['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
   return d.getDate()+' '+m[d.getMonth()]+' '+(d.getFullYear()+543)+'  '+d.toTimeString().slice(0,5);
 }
 
-/* ── OPEN PAYMENT ── */
-function openPay(){
-  if(!D.plate){msg('กรุณาคำนวณก่อน');return;}
-  document.getElementById('phplate').textContent=D.plate;
-  document.getElementById('phdur').textContent='ระยะเวลา '+D.dur;
-  document.getElementById('phamount').textContent=D.total.toLocaleString();
-  document.getElementById('phnote').textContent=D.total===0?'🎉 ไม่มีค่าใช้จ่าย':'ยอดที่ต้องชำระ';
-  document.getElementById('s2amt').textContent='฿'+D.total.toLocaleString();
-  var rows=[
-    ['ป้ายทะเบียน',D.plate,true],
-    ['วัน/เวลาเข้า',fdt(D.entry),false],
-    ['วัน/เวลาออก',fdt(D.exit),false],
-    ['ระยะเวลาจอด',D.dur,false],
-    ['รายละเอียด',D.detail||(D.total===0?'ฟรี':'—'),false],
-    ['ยอดชำระ','฿'+D.total.toLocaleString(),true],
-  ];
-  document.getElementById('payrows').innerHTML=rows.map(function(r){
-    return '<div class="arow"><span class="albl">'+r[0]+'</span><span class="aval'+(r[2]?' num':'')+'" style="'+(r[2]?'':'font-size:13px')+'">'+r[1]+'</span></div>';
-  }).join('');
-
-  /* Generate QR */
-  if(D.total>0){
-    makeQR(D.total, D.plate);
-  } else {
-    var qel=document.getElementById('qr-disp');
-    qel.innerHTML='<div style="width:200px;height:200px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;background:linear-gradient(135deg,#f0fff4,#dcfce7);border-radius:16px;border:4px solid #86efac;margin:0 auto"><span style="font-size:64px">🎉</span><span style="color:#16a34a;font-family:Itim,cursive;font-size:20px;">FREE!</span></div>';
-    document.getElementById('qbnote').textContent='ไม่มีค่าใช้จ่าย — ต่ำกว่า 1 ชั่วโมง';
-  }
-
-  var pp=document.getElementById('paypage');
-  pp.style.display='block';
-  pp.scrollTop=0;
-}
-
 function closePay(){ document.getElementById('paypage').style.display='none'; }
 
-/* COPY */
-function copyAcc(){
-  var n='0923791035';
-  if(navigator.clipboard){ navigator.clipboard.writeText(n).then(function(){msg('✓ คัดลอกเบอร์ PromptPay แล้ว');}).catch(function(){fbCopy(n);}); }
-  else { fbCopy(n); }
-}
-function fbCopy(t){
-  var ta=document.createElement('textarea');
-  ta.value=t;ta.style.cssText='position:fixed;opacity:0;top:0;left:0;';
-  document.body.appendChild(ta);ta.focus();ta.select();
-  try{document.execCommand('copy');msg('✓ คัดลอกเลขบัญชีแล้ว');}catch(e){msg('เลขบัญชี: '+t);}
-  document.body.removeChild(ta);
+/* ══════════════════════════════════════════
+   QR GENERATION (EMVCo PromptPay)
+══════════════════════════════════════════ */
+function buildEMV(mobile, amount){
+  function tlv(tag,val){ return tag+('00'+val.length).slice(-2)+val; }
+  function crc16(str){
+    var crc=0xFFFF;
+    for(var i=0;i<str.length;i++){
+      crc^=(str.charCodeAt(i)<<8);
+      for(var b=0;b<8;b++){ crc=(crc&0x8000)?((crc<<1)^0x1021):(crc<<1); }
+    }
+    return('0000'+(crc&0xFFFF).toString(16).toUpperCase()).slice(-4);
+  }
+  var phone=mobile.replace(/\D/g,'');
+  if(phone.charAt(0)==='0') phone='0066'+phone.slice(1);
+  var tag29=tlv('00','A000000677010111')+tlv('01',phone);
+  var merchantInfo=tlv('29',tag29);
+  var body=tlv('00','01')+tlv('01','12')+merchantInfo+tlv('53','764')+tlv('54',amount.toFixed(2))+tlv('58','TH');
+  var withCRC=body+'6304';
+  var cs=crc16(withCRC);
+  return withCRC+cs;
 }
 
-/* CONFIRM / SUCCESS */
+function makeQR(amount, plate){
+  var qel=document.getElementById('qr-disp');
+  qel.innerHTML='';
+  var payload=buildEMV('0923791035',amount);
+  new QRCode(qel,{text:payload,width:220,height:220,colorDark:'#C71585',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.L});
+  var lbl=document.createElement('div');
+  lbl.style.cssText='margin-top:14px;font-size:16px;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-align:center;';
+  lbl.textContent='฿ '+amount.toLocaleString()+' · '+plate;
+  qel.appendChild(lbl);
+}
+
+/* ══════════════════════════════════════════
+   SLIP UPLOAD
+══════════════════════════════════════════ */
+function slipSelected(){
+  var file = document.getElementById('slip-file').files[0];
+  if(!file){ return; }
+  
+  var reader = new FileReader();
+  reader.onload = function(e){
+    slipData = e.target.result;
+    document.getElementById('slip-preview').src = slipData;
+    document.getElementById('slip-preview').style.display = 'block';
+    document.getElementById('slip-upload-box').classList.add('has-file');
+    document.getElementById('confirm-btn').disabled = false;
+    msg('✓ อัปโหลดสลิปสำเร็จ');
+  };
+  reader.readAsDataURL(file);
+}
+
+/* ══════════════════════════════════════════
+   CONFIRM PAYMENT & SAVE TO SHEETS
+══════════════════════════════════════════ */
 function confirmPay(){
-  document.getElementById('splate').textContent=D.plate;
-  document.getElementById('paypage').style.display='none';
-  document.getElementById('suc').style.display='flex';
-}
-function closeSuc(){ document.getElementById('suc').style.display='none'; resetAll(); }
+  // เช็คสลิปเฉพาะกรณีที่มีค่าบริการ
+  if(D.total > 0 && !slipData){
+    msg('❌ กรุณาอัปโหลดสลิปก่อนยืนยัน');
+    return;
+  }
 
-/* RESET */
-function resetAll(){
-  D={};
-  document.getElementById('plate').value='';
-  document.getElementById('rsec').classList.remove('act');
-  var now=new Date();
-  setDT('e',new Date(now-3600000)); setDT('x',now);
-  sw('scan');
-  window.scrollTo({top:0,behavior:'smooth'});
+  // Determine payment status
+  var paymentStatus;
+  if(D.total === 0){
+    paymentStatus = 'ไม่เสียค่าบริการ';
+  } else if(slipData){
+    paymentStatus = 'ชำระแล้ว';
+  } else {
+    paymentStatus = 'ยังไม่ชำระ';
+  }
+
+  // Prepare data for Google Sheets
+  var sheetData = {
+    plate: D.plate,
+    entryTime: D.entry.toISOString(),
+    exitTime: D.exit.toISOString(),
+    durationMinutes: D.diffMin,
+    paymentStatus: paymentStatus,
+    amount: D.total,
+    slipData: slipData || ''
+  };
+
+  // ถ้ายังไม่ได้ตั้งค่า Google Sheets URL ให้ทำงานแบบ offline
+  if(!SHEET_URL || SHEET_URL.trim() === ''){
+    console.log('Offline mode - Sheet data:', sheetData);
+    msg('✓ ยืนยันสำเร็จ (โหมด Offline)');
+    showExitQR();
+    return;
+  }
+
+  // Send to Google Sheets
+  msg('💾 กำลังบันทึกข้อมูล...');
+  
+  fetch(SHEET_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(sheetData)
+  }).then(function(){
+    msg('✓ บันทึกข้อมูลสำเร็จ');
+    showExitQR();
+  }).catch(function(err){
+    console.error('Error saving to sheets:', err);
+    // ถึงแม้ error ก็ให้ดำเนินการต่อได้
+    msg('⚠️ บันทึกข้อมูลไม่สำเร็จ แต่ดำเนินการต่อได้');
+    showExitQR();
+  });
+}
+
+/* ══════════════════════════════════════════
+   EXIT QR CODE SCREEN
+══════════════════════════════════════════ */
+function showExitQR(){
+  document.getElementById('paypage').style.display = 'none';
+  
+  // สร้าง exit token (unique one-time use)
+  var exitToken = generateExitToken();
+  
+  // แสดงป้ายทะเบียน
+  document.getElementById('exitqr-plate').textContent = D.plate;
+  
+  // สร้าง Exit QR Code
+  var qel = document.getElementById('exit-qr-display');
+  qel.innerHTML = '';
+  
+  // Exit QR payload: plate + token + timestamp
+  var exitData = JSON.stringify({
+    type: 'EXIT',
+    plate: D.plate,
+    token: exitToken,
+    timestamp: new Date().toISOString(),
+    amount: D.total
+  });
+  
+  new QRCode(qel, {
+    text: exitData,
+    width: 280,
+    height: 280,
+    colorDark: '#C71585',
+    colorLight: '#ffffff',
+    correctLevel: QRCode.CorrectLevel.H
+  });
+  
+  // เริ่มนับถอยหลัง 30 นาที
+  exitQRExpiry = new Date(Date.now() + 30 * 60 * 1000);
+  startExitTimer();
+  
+  // แสดงหน้า Exit QR
+  document.getElementById('exitqr').style.display = 'block';
+  document.getElementById('exitqr').scrollTop = 0;
+}
+
+function generateExitToken(){
+  // สร้าง token แบบสุ่ม 16 ตัวอักษร
+  var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  var token = '';
+  for(var i = 0; i < 16; i++){
+    token += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return token;
+}
+
+function startExitTimer(){
+  // Clear existing timer
+  if(exitQRTimer) clearInterval(exitQRTimer);
+  
+  exitQRTimer = setInterval(function(){
+    var now = new Date();
+    var diff = exitQRExpiry - now;
+    
+    if(diff <= 0){
+      // หมดอายุ
+      clearInterval(exitQRTimer);
+      document.getElementById('exitqr-timer').textContent = '00:00';
+      document.getElementById('exitqr-timer').style.color = '#dc2626';
+      document.getElementById('expired-msg').classList.add('show');
+      document.querySelector('.exitqr-box').style.opacity = '0.5';
+      return;
+    }
+    
+    var mins = Math.floor(diff / 60000);
+    var secs = Math.floor((diff % 60000) / 1000);
+    document.getElementById('exitqr-timer').textContent = pad(mins) + ':' + pad(secs);
+    
+    // เปลี่ยนสีเมื่อเหลือน้อยกว่า 5 นาที
+    if(mins < 5){
+      document.getElementById('exitqr-timer').style.background = 'linear-gradient(to right,#dc2626,#ef4444)';
+      document.getElementById('exitqr-timer').style.webkitBackgroundClip = 'text';
+    }
+  }, 1000);
+}
+
+function closeExitQR(){
+  if(exitQRTimer) clearInterval(exitQRTimer);
+  document.getElementById('exitqr').style.display = 'none';
+  document.getElementById('suc').style.display = 'flex';
+  document.getElementById('splate').textContent = D.plate;
+}
+
+function closeSuc(){
+  document.getElementById('suc').style.display = 'none';
+  location.reload(); // Reset everything
 }
 </script>
 </body>
-</html>
+</html>w
