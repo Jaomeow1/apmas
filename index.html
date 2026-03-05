@@ -174,20 +174,20 @@ body{font-family:'Itim',cursive;min-height:100vh;background:linear-gradient(to r
 // ========== FIREBASE CONFIG ==========
 // ⚠️ วาง Firebase Config เดียวกับที่ใช้ใน Admin UI
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  databaseURL: "https://YOUR_PROJECT_ID-default-rtdb.firebaseio.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyBPKwVZccQ83FxBHmPqskZ1DlLNcRJJeA8",
+  authDomain: "apmas-parking.firebaseapp.com",
+  databaseURL: "https://apmas-parking-default-rtdb.asia-southeast1.firebasedatabase.app/",
+  projectId: "apmas-parking",
+  storageBucket: "apmas-parking.firebasestorage.app",
+  messagingSenderId: "806432177524",
+  appId: "1:806432177524:web:ee38d79999d7733af54021"
 };
 
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
 // ========== GOOGLE SHEETS CONFIG ==========
-const SHEET_URL = 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL';
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbxi5fITCOy9zHf9jz6gss5SAVSAnxY-x2icFV8a_9_Vk8blbWv0FC53qC7Ci5HN9WQ_xw/exec';
 
 // ========== STATE ==========
 var ticketId = new URLSearchParams(location.search).get("ticket_id");
