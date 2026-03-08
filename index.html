@@ -373,15 +373,17 @@ function confirmPay(){
 }
 
 function sendToGoogleSheets(){
-  if(!SHEET_URL||SHEET_URL==='https://script.google.com/macros/s/AKfycbxi5fITCOy9zHf9jz6gss5SAVSAnxY-x2icFV8a_9_Vk8blbWv0FC53qC7Ci5HN9WQ_xw/exec'){
-    console.log('⚠️ ยังไม่ได้ตั้งค่า SHEET_URL');
+
+  const SHEET_URL = "https://script.google.com/macros/s/AKfycbxi5flTCOy9zHlf9jz6gss5SAVSAnxY-x2icFV8a_9_Vk8blbWv0FC53qC7Ci5HN9W/exec";
+
+  if(!SHEET_URL){
+    console.log('⚠ ยังไม่ได้ตั้งค่า SHEET_URL');
     return;
   }
-  
+
   var data={
     ticket_id:D.ticket_id||'',
     plate:D.plate.split(' ').slice(0,2).join(' ')||'',
-    province:D.province||'',
     slot:D.slot||'',
     entry_time:D.entry?D.entry.toISOString():'',
     exit_time:D.exit?D.exit.toISOString():'',
@@ -390,17 +392,22 @@ function sendToGoogleSheets(){
     payment_status:'ชำระแล้ว',
     timestamp:new Date().toISOString()
   };
-  
+
   fetch(SHEET_URL,{
     method:'POST',
-    mode:'no-cors',
-    headers:{'Content-Type':'application/json'},
+    headers:{
+      'Content-Type':'application/json'
+    },
     body:JSON.stringify(data)
-  }).then(function(){
-    console.log('✓ บันทึก Google Sheets สำเร็จ');
-  }).catch(function(err){
-    console.error('⚠️ Google Sheets Error:',err);
+  })
+  .then(res=>res.json())
+  .then(r=>{
+    console.log("✓ ส่งเข้า Google Sheets สำเร็จ",r);
+  })
+  .catch(err=>{
+    console.error("❌ ส่ง Sheet ไม่สำเร็จ",err);
   });
+
 }
 
 function showSuccess(){document.getElementById('paypage').style.display='none';document.getElementById('splate').textContent=D.plate.split(' ').slice(0,2).join(' ');document.getElementById('suc').style.display='flex';}
