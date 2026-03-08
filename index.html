@@ -236,7 +236,12 @@ window.addEventListener('load', function(){
       exitTime = new Date(t.time_out);
       document.getElementById('exit-date').textContent = fmtDate(exitTime);
       document.getElementById('exit-time').textContent = fmtTime(exitTime);
-      document.getElementById('payment-status').textContent = 'ชำระแล้ว';
+      
+      // อัพเดทสถานะตาม payment_status จาก Firebase
+      if(t.payment_status === 'paid'){
+        document.getElementById('payment-status').textContent = 'ชำระแล้ว';
+        document.getElementById('payment-status').style.color = '#16a34a';
+      }
     }else{
       document.getElementById('exit-date').textContent = '—';
       document.getElementById('exit-time').textContent = '—';
@@ -341,18 +346,29 @@ function buildEMV(mobile,amount){function tlv(tag,val){return tag+('00'+val.leng
 
 function makeQR(amount,plate){var qel=document.getElementById('qr-disp');qel.innerHTML='';var notice=document.createElement('div');notice.style.cssText='background:rgba(255,20,147,0.12);border:2px solid rgba(255,20,147,0.35);border-radius:16px;padding:20px 16px;margin-bottom:24px;text-align:center;';notice.innerHTML='<div style="font-size:17px;font-weight:700;color:#FF1493;line-height:1.8;">📝 รบกวนลูกค้ากรอกป้ายทะเบียนของตนเอง<br>ในช่อง<span style="border-bottom:3px solid #FF1493;padding-bottom:2px;">บันทึกช่วยจำ</span> ขอบคุณค่ะ 🙏</div>';qel.appendChild(notice);var qrContainer=document.createElement('div');qel.appendChild(qrContainer);var payload=buildEMV('0923791035',amount);new QRCode(qrContainer,{text:payload,width:220,height:220,colorDark:'#C71585',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.L});var plateNumber=plate.split(' ').slice(0,2).join(' ');var plateLbl=document.createElement('div');plateLbl.style.cssText='margin-top:16px;font-size:28px;font-weight:700;text-align:center;font-family:"Space Mono",monospace;letter-spacing:6px;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;';plateLbl.textContent=plateNumber;qel.appendChild(plateLbl);var province=D.province||'';if(province){var provinceLbl=document.createElement('div');provinceLbl.style.cssText='margin-top:8px;font-size:20px;font-weight:600;text-align:center;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;';provinceLbl.textContent=province;qel.appendChild(provinceLbl);}var amtLbl=document.createElement('div');amtLbl.style.cssText='margin-top:12px;font-size:32px;font-weight:700;text-align:center;color:var(--g1);';amtLbl.textContent='฿ '+amount.toLocaleString();qel.appendChild(amtLbl);}
 
+// ========== ฟังก์ชันยืนยันชำระเงิน (เพิ่มการส่งข้อมูลไป Firebase) ==========
 function confirmPay(){
-  // บันทึกใน Firebase
+  // ส่งข้อมูลการชำระเงินไป Firebase
   db.ref(`/tickets/${ticketId}`).update({
     time_out: new Date().toISOString(),
     payment_amount: D.total,
-    payment_status: 'paid'
+    payment_status: 'paid',
+    payment_confirmed_at: new Date().toISOString(),
+    plate_number: D.plate.split(' ').slice(0,2).join(' '),
+    province: D.province || '',
+    duration_minutes: D.diffMin || 0
+  }).then(function(){
+    console.log('✓ ส่งข้อมูลไป Firebase สำเร็จ');
+    msg('✓ ชำระเงินสำเร็จ - ส่งข้อมูลไป Firebase แล้ว');
+  }).catch(function(error){
+    console.error('⚠️ Firebase Error:', error);
+    msg('⚠️ บันทึกข้อมูล Firebase ไม่สำเร็จ');
   });
   
-  // บันทึกใน Google Sheets
+  // บันทึกใน Google Sheets (ถ้ามี)
   sendToGoogleSheets();
   
-  msg('✓ ยืนยันสำเร็จ');
+  // แสดงหน้าสำเร็จ
   showSuccess();
 }
 
