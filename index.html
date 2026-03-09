@@ -321,6 +321,14 @@ function exitParking(){
   var mm=Math.floor(diffMin%60);
   var dur=(hh>0?hh+' ชม. ':'')+mm+' นาที';
   D.exit=now;D.total=total;D.detail=detail;D.dur=dur;D.diffMin=Math.floor(diffMin);
+  
+  // Debug: แสดงยอดเงินที่คำนวณได้
+  console.log('💰 คำนวณยอดเงินสำเร็จ:', {
+    duration: dur,
+    total: total,
+    detail: detail
+  });
+  
   openPay();
 }
 
@@ -380,6 +388,14 @@ function sendToGoogleSheets(){
     return;
   }
   
+  // ⭐ ตรวจสอบว่า D.total มีค่า
+  console.log('🔍 ตรวจสอบข้อมูลก่อนส่ง:', {
+    'D.total': D.total,
+    'D.diffMin': D.diffMin,
+    'D.entry': D.entry,
+    'D.exit': D.exit
+  });
+  
   var data={
     ticket_id:D.ticket_id||'',
     plate:D.plate.split(' ').slice(0,2).join(' ')||'',
@@ -388,7 +404,7 @@ function sendToGoogleSheets(){
     entry_time:D.entry?D.entry.toISOString():'',
     exit_time:D.exit?D.exit.toISOString():'',
     duration_minutes:D.diffMin||0,
-    amount:D.total||0,
+    amount:D.total||0,  // ⭐ ยอดเงินที่คำนวณได้
     payment_status:'ชำระแล้ว',
     timestamp:new Date().toISOString()
   };
@@ -396,6 +412,7 @@ function sendToGoogleSheets(){
   // Debug: แสดงข้อมูลที่จะส่ง
   console.log('📊 ข้อมูลที่ส่งไป Google Sheets:', data);
   console.log('💰 ยอดเงิน (amount):', data.amount);
+  console.log('⏱ ระยะเวลา (duration_minutes):', data.duration_minutes);
   
   fetch(SHEET_URL,{
     method:'POST',
